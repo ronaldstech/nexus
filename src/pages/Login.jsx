@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Lock, User } from 'lucide-react';
+import { Mail, Lock, User, Sun, Moon } from 'lucide-react';
 
-export default function Login() {
+export default function Login({ theme, toggleTheme }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -17,6 +17,9 @@ export default function Login() {
 
     return (
         <div className="auth-container">
+            <button className="global-theme-toggle" onClick={toggleTheme} aria-label="Toggle Theme">
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
             <div className="auth-card">
                 <div className="auth-header">
                     <div className="icon-wrapper">

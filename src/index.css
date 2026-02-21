@@ -2,18 +2,78 @@
 
 :root {
   --font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  --bg-gradient: linear-gradient(135deg, #0b1a30 0%, #030712 100%);
+  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   --card-bg: rgba(255, 255, 255, 0.98);
-  --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.05) inset;
   --text-primary: #111827;
   --text-secondary: #4b5563;
-  --text-muted: #9ca3af;
+  --text-muted: #6b7280;
   --accent-color: #3b82f6;
   --accent-hover: #2563eb;
   --input-bg: #f9fafb;
   --input-border: #e5e7eb;
   --input-focus-ring: rgba(59, 130, 246, 0.5);
   --error-color: #ef4444;
+
+  /* Landing Page Specific Dimensions & Spacing */
+  --lp-nav-height: 80px;
+  --lp-max-width: 1200px;
+  --lp-radius-sm: 8px;
+  --lp-radius-md: 12px;
+  --lp-radius-lg: 24px;
+  --lp-spacing-section: clamp(60px, 10vw, 120px);
+
+  /* Landing Page Light Theme Variables */
+  --lp-bg-primary: #ffffff;
+  --lp-bg-secondary: #f8fafc;
+  --lp-bg-tertiary: #f1f5f9;
+
+  --lp-text-primary: #0f172a;
+  --lp-text-secondary: #475569;
+  --lp-text-tertiary: #64748b;
+
+  --lp-accent-blue: #2563eb;
+  --lp-accent-blue-hover: #1d4ed8;
+  --lp-accent-dark: #0f172a;
+
+  --lp-border-color: #e2e8f0;
+
+  --lp-gradient-blue-black: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  --lp-gradient-text: linear-gradient(to right, #2563eb, #0f172a);
+
+  --lp-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --lp-shadow-glow: 0 0 20px rgba(37, 99, 235, 0.2);
+}
+
+[data-theme='dark'] {
+  --bg-gradient: linear-gradient(135deg, #0b1a30 0%, #030712 100%);
+  --card-bg: rgba(17, 24, 39, 0.95);
+  --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --input-bg: rgba(31, 41, 55, 0.5);
+  --input-border: #374151;
+
+  /* Landing Page Dark Theme Variables */
+  --lp-bg-primary: #020617;
+  --lp-bg-secondary: #0f172a;
+  --lp-bg-tertiary: #1e293b;
+
+  --lp-text-primary: #f8fafc;
+  --lp-text-secondary: #cbd5e1;
+  --lp-text-tertiary: #94a3b8;
+
+  --lp-accent-blue: #3b82f6;
+  --lp-accent-blue-hover: #60a5fa;
+  --lp-accent-dark: #ffffff;
+
+  --lp-border-color: #334155;
+
+  --lp-gradient-blue-black: linear-gradient(135deg, #020617 0%, #1e3a8a 100%);
+  --lp-gradient-text: linear-gradient(to right, #60a5fa, #ffffff);
+
+  --lp-shadow-glow: 0 0 30px rgba(59, 130, 246, 0.3);
 }
 
 * {
@@ -27,9 +87,6 @@ body {
   background: var(--bg-gradient);
   color: var(--text-primary);
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -48,12 +105,18 @@ a:hover {
 /* Authentication Layout */
 .auth-container {
   width: 100%;
-  max-width: 440px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 2rem;
   perspective: 1000px;
 }
 
 .auth-card {
+  width: 100%;
+  max-width: 440px;
   background: var(--card-bg);
   border-radius: 20px;
   padding: 40px;
@@ -68,6 +131,7 @@ a:hover {
     opacity: 0;
     transform: translateY(30px) rotateX(10deg);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) rotateX(0);
@@ -82,7 +146,8 @@ a:hover {
 .icon-wrapper {
   width: 64px;
   height: 64px;
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  background: rgba(59, 130, 246, 0.1);
+  /* Translucent accent color for adaptivity */
   color: var(--accent-color);
   border-radius: 16px;
   display: flex;
@@ -161,7 +226,7 @@ a:hover {
   box-shadow: 0 0 0 4px var(--input-focus-ring);
 }
 
-.input-with-icon input:focus + .input-icon {
+.input-with-icon input:focus+.input-icon {
   color: var(--accent-color);
 }
 
@@ -281,4 +346,46 @@ a:hover {
 
 .auth-link {
   font-weight: 600;
+}
+
+/* Global Theme Toggle Button */
+.global-theme-toggle {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--input-border);
+  padding: 0.75rem;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 50;
+}
+
+.global-theme-toggle:hover {
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Responsiveness for Auth Pages */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 24px;
+    border-radius: 16px;
+  }
+
+  .auth-header h1 {
+    font-size: 20px;
+  }
+
+  .global-theme-toggle {
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+  }
 }
