@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Lock, UserPlus } from 'lucide-react';
+import { Mail, Lock, UserPlus, Sun, Moon } from 'lucide-react';
 
-export default function Signup() {
+export default function Signup({ theme, toggleTheme }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -22,6 +22,9 @@ export default function Signup() {
 
     return (
         <div className="auth-container">
+            <button className="global-theme-toggle" onClick={toggleTheme} aria-label="Toggle Theme">
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
             <div className="auth-card">
                 <div className="auth-header">
                     <div className="icon-wrapper">
@@ -92,7 +95,7 @@ export default function Signup() {
                 </button>
 
                 <p className="auth-footer">
-                    Already have an account? <Link to="/" className="auth-link">Sign in</Link>
+                    Already have an account? <Link to="/login" className="auth-link">Sign in</Link>
                 </p>
             </div>
         </div>
