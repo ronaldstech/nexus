@@ -4,6 +4,7 @@ import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AdminDashboard from './pages/AdminDashboard';
+import UserDashboard from './pages/UserDashboard';
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('nexus-theme') || 'light');
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login" element={<Login theme={theme} toggleTheme={toggleTheme} />} />
         <Route path="/signup" element={<Signup theme={theme} toggleTheme={toggleTheme} />} />
         <Route path="/admin/dashboard" element={<AdminDashboard theme={theme} toggleTheme={toggleTheme} />} />
+        <Route path="/user/dashboard" element={<UserDashboard theme={theme} toggleTheme={toggleTheme} />} />
       </Routes>
     </Router>
   );
